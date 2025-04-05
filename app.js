@@ -3,7 +3,7 @@ import categoriasRoutes from './src/routes/categoriasRoutes.js';
 
 const app = express();
 
-app.use('/Categorias', categoriasRoutes);
+app.use('/categorias', categoriasRoutes);
 
 // app.get('/',(req,res)=>{
 //     // console.log('hola desde el inicio');

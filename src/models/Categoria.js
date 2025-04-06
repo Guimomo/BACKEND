@@ -18,6 +18,13 @@ class Categoria {
         }
     }
 
+    //Metodo -> crear categoria
+    create(nombre, descripcion) {
+
+        connection.query("insert into categorias (nombre,descripcion) values (?,?)", [nombre, descripcion])
+        
+    }
+
 }
 
 export default Categoria;

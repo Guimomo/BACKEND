@@ -13,7 +13,16 @@ class CategoriaController {
         return res.json(categorias)
 
         // console.log("desde el controlador");
-        
+    }
+
+    static async createCategoria(req,res) {
+
+        //console.log(req.body);
+        const {nombre, descripcion} = req.body;
+        const OBJCategoria = new Categoria();
+        const categorias = await OBJCategoria.create(nombre, descripcion);
+
+        return  categorias;
     }
 }
 

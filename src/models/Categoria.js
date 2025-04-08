@@ -21,7 +21,11 @@ class Categoria {
     //Metodo -> crear categoria
     create(nombre, descripcion) {
 
-        connection.query("insert into categorias (nombre,descripcion) values (?,?)", [nombre, descripcion])
+        connection.query("insert into categorias (nombre,descripcion) values (?,?)", [nombre, descripcion]);
+        return {
+            nombre: nombre,
+            descripcion: descripcion
+        }        
         
     }
 

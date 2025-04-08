@@ -20,9 +20,9 @@ class CategoriaController {
         //console.log(req.body);
         const {nombre, descripcion} = req.body;
         const OBJCategoria = new Categoria();
-        const categorias = await OBJCategoria.create(nombre, descripcion);
+        const categoria = await OBJCategoria.create(nombre, descripcion);
 
-        return  categorias;
+        return  res.json(categoria);
     }
 }
 

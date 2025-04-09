@@ -15,6 +15,7 @@ class CategoriaController {
         // console.log("desde el controlador");
     }
 
+    //Metodo para crear categoria
     static async createCategoria(req,res) {
 
         //console.log(req.body);
@@ -22,7 +23,17 @@ class CategoriaController {
         const OBJCategoria = new Categoria();
         const categoria = await OBJCategoria.create(nombre, descripcion);
 
-        return  res.json(categoria);
+        return res.json(categoria);
+    }
+
+    //Metodo para eliminar categoria
+    static deleteCategoria(req,res) {
+        
+        const {id} = req.params;
+        const OBJCategoria = new Categoria();
+        const Categoria = OBJCategoria.delete(id);
+
+        return res.json(Categoria);
     }
 }
 

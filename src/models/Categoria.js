@@ -21,12 +21,56 @@ class Categoria {
     //Metodo -> crear categoria
     create(nombre, descripcion) {
 
-        connection.query("insert into categorias (nombre,descripcion) values (?,?)", [nombre, descripcion]);
+        const [result] = connection.query("insert into categorias (nombre,descripcion) values (?,?)", [nombre, descripcion]);
+        
         return {
-            nombre: nombre,
-            descripcion: descripcion
+            id: result.insertId,
+            nombre,
+            descripcion
         }        
         
+    }
+
+    async getById(id) {
+
+        try {
+            
+            const [rows] = await connection.query("select * from categorias where id = ?", [id]);
+
+            if (rows.length === 0) {
+
+                throw new Error("Categoria no encontrada");
+            }
+
+            return rows[0];
+
+        } catch (error) {
+
+            throw new Error("Error al obtener la categoria");
+        }
+    }
+
+    estaRelacionadaconProductos(categoria_id) {
+    
+        
+    }
+    //Metodo -> eliminar categoria
+    async delete(id) {
+        try {
+            //const [result] = connection.query("delete from categorias where id = ?", [id]);
+            //return result;
+
+            let datos = await this.getById(id);
+            console.log("Datos de la categoría seleccionada:", datos);
+
+            return {
+                mensaje: "Categoría encontrada. Confirma si deseas eliminarla.",
+                categoria: datos,
+            };
+
+        } catch (error) {
+            throw new Error("Error al eliminar la categoria");
+        }
     }
 
 }

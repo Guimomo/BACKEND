@@ -27,13 +27,13 @@ class CategoriaController {
     }
 
     //Metodo para eliminar categoria
-    static deleteCategoria(req,res) {
+    static async deleteCategoria(req,res) {
         
-        const {id} = req.params;
+        const { id } = req.params;
         const OBJCategoria = new Categoria();
-        const Categoria = OBJCategoria.delete(id);
+        const categoria = await OBJCategoria.delete(id);
 
-        return res.json(Categoria);
+        return res.json(categoria);
     }
 }
 

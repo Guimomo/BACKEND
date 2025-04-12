@@ -39,11 +39,11 @@ class CategoriaController {
         const { id } = req.params;
         const { nombre  } = req.body;
         const OBJCategoria = new Categoria();
-        OBJCategoria.update(id, nombre);
+        const categoria = await OBJCategoria.update(id, nombre);
         //const OBJCategoria = new Categoria();
         //const categoria = await OBJCategoria.update(id, nombre, descripcion);
 
-        //return res.json(categoria);
+        return res.json(categoria);
     }
 
     //Metodo para eliminar categoria

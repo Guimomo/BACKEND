@@ -69,7 +69,29 @@ class Categoria {
     //Metodo -> actualizar categoria (put/patch)
     async update(id, nombre) {
 
-        console.log(id, nombre);
+        try {
+            
+            // el [] es para desestructurar el objeto
+            const [result] = await connection.query("update categorias set nombre = ? where id = ?", [nombre, id]);
+
+            if (result.affectedRows === 0) {
+
+                return {
+
+                    error: true,
+                    message: "Categoria no encontrada"
+                }
+            }
+
+            return {
+                error: false,
+                message: "Categoria actualizada correctamente"
+            }
+
+        } catch (error) {
+            
+            throw new Error("Error al actualizar la categoria");
+        }
     }
 
     //Metodo -> eliminar categoria

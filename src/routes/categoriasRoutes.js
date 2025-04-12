@@ -9,8 +9,19 @@ const router = express();
 
 try {
 
+    //get es consultar, post es crear o subir, delete es eliminar, 
+    //put es actualizar y patch es modificar parte de un recurso
+
+    //GET -> listar todas las categorias
     router.get('/',CategoriaController.getAllCategorias);
+
+    //POST -> crear categoria
     router.post('/', validarDatos, CategoriaController.createCategoria);
+    
+    //PUT -> actualizar categoria
+    router.put('/:id', CategoriaController.updateCategoria);
+
+    //DELETE -> eliminar categoria
     router.delete('/:id', CategoriaController.deleteCategoria);
     
 } catch (error) {

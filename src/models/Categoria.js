@@ -4,7 +4,7 @@ class Categoria {
 
     constructor(){ }
 
-    //Metodos -> listar
+    //Metodo -> listar
     async getAll(){
 
         try {
@@ -31,6 +31,7 @@ class Categoria {
         
     }
 
+    //Metodo -> obtener categoria por id
     async getById(id) {
 
         try {
@@ -49,6 +50,7 @@ class Categoria {
         }
     }
 
+    //Metodo -> validar si la categoria tiene productos relacionados
     async estaRelacionadaconProductos(categoria_id) {
     
         try {
@@ -64,13 +66,22 @@ class Categoria {
         
     }
 
+    //Metodo -> actualizar categoria (put/patch)
+    async update(id, nombre) {
+
+        console.log(id, nombre);
+    }
+
     //Metodo -> eliminar categoria
     async delete(id) {
         try {
 
             let datos = await this.getById(id)
+
+            //Consulto si datos (categoria) tiene productos relacionados
             let tieneRelacion = await this.estaRelacionadaconProductos(datos.id);
 
+            //si tieneRelacion es mayor a 0 significa que tiene productos relacionados y retorno el mensaje
             if (tieneRelacion.length > 0) {
 
                 return {
@@ -78,10 +89,14 @@ class Categoria {
                     message: "No se puede eliminar la categoria porque tiene productos relacionados",
                 }
 
-            } else {
+            }
+
+            //si no tieneRelacion elimino la categoria
+            else {
 
                 const [result] = await connection.query("delete from categorias where id = ?", [id]);
                 
+                //valido que no tenga errores al eliminar la categoria
                 if (result.affectedRows === 0) {
                     return {
                         error: true,
@@ -89,6 +104,7 @@ class Categoria {
                     }
                 }
 
+                //retorno el mensaje de exito al eliminar la categoria
                 return {
                     error: false,
                     message: "Categoria eliminada correctamente",
@@ -96,8 +112,6 @@ class Categoria {
                 }
                 
             }
-
-            console.log(tieneRelacion);
 
         } catch (error) {
             console.log(error);

@@ -20,9 +20,17 @@ try {
     
     //PUT -> actualizar categoria
     router.put('/:id', CategoriaController.updateCategoria);
+    // Ruta para actualizar un producto
+    router.put('/productos/:id', CategoriaController.updateProducto);
+
+    //PATCH -> modificar parte de la categoria
+    router.patch('/:id', CategoriaController.updateCategoria);
+    // Ruta para actualizar un producto
+    router.patch('/productos/:id', CategoriaController.updateProducto);
 
     //DELETE -> eliminar categoria
     router.delete('/:id', CategoriaController.deleteCategoria);
+
     
 } catch (error) {
 

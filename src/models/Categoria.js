@@ -67,30 +67,117 @@ class Categoria {
     }
 
     //Metodo -> actualizar categoria (put/patch)
-    async update(id, nombre) {
+    async update(id, campos) {
 
-        try {
-            
-            // el [] es para desestructurar el objeto
-            const [result] = await connection.query("update categorias set nombre = ? where id = ?", [nombre, id]);
+            //console.log(campos, id);
+            let query = "UPDATE categorias SET ";
+            let params = [];
+            //construimos dinamicamente la consulta con los campos que llegan
+            // console.log(Object.entries(campos));
 
-            if (result.affectedRows === 0) {
+            const camposEntries = Object.entries(campos);
+            for (const [key, value] of camposEntries) {
+                
+                
+                // Validar si el valor es inválido
+                if (value === null || value === undefined || value === "") {
+                    return {
+                        error: true,
+                        message: `El valor para el campo '${key}' no es válido.`, 
+                            
+                    };
+                }
+                
+                query += `${key} = ?, `;
+                params.push(value);
+
+
+            }
+
+
+            // console.log(query);
+            query = query.slice(0, -2); //eliminamos la ultima coma y el espacio
+            query += " where id = ?";
+            params.push(id); //agregamos el id al final de los params
+
+            try {
+
+                const [result] = await connection.query(query, params);
+                
+                //return result.affectedRows > 0 ? {id, ...campos} : null;
+
+                if (result.affectedRows === 0) {
+                    return {
+                        error: true,
+                        message: "No se pudo actualizar la categoria",
+                    }
+                }
 
                 return {
-
-                    error: true,
-                    message: "Categoria no encontrada"
+                    error: false,
+                    message: "Categoria actualizada correctamente"
                 }
+                
+            } catch (error) {
+                
             }
+            console.log(query,params);
+    }
 
+
+    //Metodo -> actualizar productos (put/patch)
+    async updateProducto(id, campos) {
+        
+        try {
+        
+            let query = "UPDATE productos SET ";
+            let params = [];
+        
+            // Construir dinámicamente la consulta SQL
+            const camposEntries = Object.entries(campos);
+
+            for (const [key, value] of camposEntries) {
+                // Validar si el valor es inválido
+                if (value === null || value === undefined || value === "") {
+                    return {
+                        error: true,
+                        message: `El valor para el campo '${key}' no es válido.`,
+                    };
+                }
+        
+                query += `${key} = ?, `;
+                params.push(value);
+            }
+        
+            query = query.slice(0, -2); // Eliminar la última coma y espacio
+            query += " WHERE id = ?";
+            params.push(id); // Agregar el ID al final de los parámetros
+        
+            console.log("Consulta SQL:", query);
+            console.log("Parámetros:", params);
+        
+            // Ejecutar la consulta
+            const [result] = await connection.query(query, params);
+        
+            if (result.affectedRows === 0) {
+                return {
+                    error: true,
+                    message: "No se pudo actualizar el producto",
+                };
+            }
+        
             return {
                 error: false,
-                message: "Categoria actualizada correctamente"
-            }
+                message: "Producto actualizado correctamente",
+            };
 
         } catch (error) {
-            
-            throw new Error("Error al actualizar la categoria");
+
+            console.error("Error al actualizar el producto:", error.message);
+            return {
+                error: true,
+                message: "Error al actualizar el producto",
+            };
         }
     }
 

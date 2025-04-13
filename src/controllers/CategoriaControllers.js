@@ -37,13 +37,30 @@ class CategoriaController {
         
         // el uso de {} es para desestructurar el objeto en este caso el req.params de id
         const { id } = req.params;
-        const { nombre  } = req.body;
+        const campos = req.body;
         const OBJCategoria = new Categoria();
-        const categoria = await OBJCategoria.update(id, nombre);
+        const categoria = await OBJCategoria.update(id, campos);
         //const OBJCategoria = new Categoria();
         //const categoria = await OBJCategoria.update(id, nombre, descripcion);
 
         return res.json(categoria);
+    }
+
+    static async updateProducto(req, res) {
+        //try {
+            // Obtener el ID del producto desde los parámetros de la URL
+            const { id } = req.params;
+            const campos = req.body;
+            const OBJCategoria = new Categoria();
+            const producto = await OBJCategoria.updateProducto(id, campos);
+    
+            // Retornar la respuesta
+            return res.json(producto);
+
+        // } catch (error) {
+        //     console.error("Error al actualizar el producto:", error.message);
+        //     return res.status(500).json({ mensaje: "Error interno del servidor" });
+        // }
     }
 
     //Metodo para eliminar categoria

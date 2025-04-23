@@ -17,7 +17,9 @@ try {
 
     //POST -> crear categoria
     router.post('/', validarDatos, CategoriaController.createCategoria);
-    
+    //ruta para crear un producto
+    router.post('/productos', CategoriaController.createProducto);
+
     //PUT -> actualizar categoria
     router.put('/:id', CategoriaController.updateCategoria);
     // Ruta para actualizar un producto

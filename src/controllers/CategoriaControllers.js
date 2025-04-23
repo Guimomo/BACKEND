@@ -92,6 +92,33 @@ class CategoriaController {
         }
     }
 
+    //Metodo para crear producto
+    static async createProducto(req, res) {
+        try {
+            const { nombre, descripcion, precio, categoria_id } = req.body; // Obtener los datos del producto desde el cuerpo de la solicitud
+    
+            // Validar que todos los campos estén presentes
+            if (!nombre || !descripcion || !precio || !categoria_id) {
+                return res.status(400).json({
+                    error: true,
+                    message: "Todos los campos son obligatorios (nombre, descripcion, precio, categoria_id)",
+                });
+            }
+    
+            const OBJCategoria = new Categoria(); // Crear una instancia del modelo
+            const producto = await OBJCategoria.createProducto(nombre, descripcion, precio, categoria_id); // Llamar al método del modelo
+    
+            return res.status(201).json({
+                error: false,
+                message: "Producto creado correctamente",
+                data: producto,
+            });
+        } catch (error) {
+            console.error("Error al crear el producto:", error.message);
+            return res.status(500).json({ mensaje: "Error interno del servidor" });
+        }
+    }
+
 }
 
 export default CategoriaController;

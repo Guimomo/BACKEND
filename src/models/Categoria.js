@@ -266,6 +266,29 @@ class Categoria {
             };
         }
     }
+
+    //Metodo para crear un producto
+    async createProducto(nombre, descripcion, precio, categoria_id) {
+        try {
+            // Ejecutar la consulta SQL para insertar el producto
+            const [result] = await connection.query(
+                "INSERT INTO productos (nombre, descripcion, precio, categoria_id) VALUES (?, ?, ?, ?)",
+                [nombre, descripcion, precio, categoria_id]
+            );
+    
+            // Retornar el producto creado
+            return {
+                id: result.insertId,
+                nombre,
+                descripcion,
+                precio,
+                categoria_id,
+            };
+        } catch (error) {
+            console.error("Error al crear el producto:", error.message);
+            throw new Error("Error al crear el producto");
+        }
+    }
 }
 
 export default Categoria;

@@ -1,6 +1,7 @@
 import express from 'express';
-import categoriasRoutes from './src/routes/categoriasRoutes.js';
 import bodyParser from 'body-parser';
+import categoriasRoutes from './src/routes/categoriasRoutes.js'; 
+import productoRouter from './src/routes/productoRoutes.js';
 
 const app = express();
 
@@ -8,12 +9,12 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({extended:true}))
 
-// app.use('/categorias', categoriasRoutes);
-
-// app.use('/productos', categoriasRoutes);
-
 // Registrar las rutas
-app.use('/', categoriasRoutes);
+app.use('/categorias', categoriasRoutes);
+app.use('/productos', productoRouter);
+
+// Registrar las rutas en un solo sitio
+//app.use('/', categoriasRoutes);
 
 // app.get('/',(req,res)=>{
 //     // console.log('hola desde el inicio');
@@ -25,4 +26,4 @@ app.use('/', categoriasRoutes);
 app.listen(3000,()=>{
     console.log("hola mundo");
     
-})
+});

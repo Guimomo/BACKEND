@@ -46,21 +46,23 @@ class CategoriaController {
         return res.json(categoria);
     }
 
+    //Metodo para actualizar producto
     static async updateProducto(req, res) {
-        //try {
-            // Obtener el ID del producto desde los parámetros de la URL
-            const { id } = req.params;
-            const campos = req.body;
-            const OBJCategoria = new Categoria();
-            const producto = await OBJCategoria.updateProducto(id, campos);
+        try {
+            const { id } = req.params; // Obtener el ID del producto desde los parámetros de la URL
+            const campos = req.body; // Obtener los campos a actualizar desde el cuerpo de la solicitud
     
-            // Retornar la respuesta
-            return res.json(producto);
-
-        // } catch (error) {
-        //     console.error("Error al actualizar el producto:", error.message);
-        //     return res.status(500).json({ mensaje: "Error interno del servidor" });
-        // }
+            console.log("ID recibido:", id);
+            console.log("Campos recibidos:", campos);
+    
+            const OBJCategoria = new Categoria(); // Crear una instancia del modelo
+            const resultado = await OBJCategoria.updateProducto(id, campos); // Llamar al método del modelo
+    
+            return res.json(resultado); // Retornar la respuesta
+        } catch (error) {
+            console.error("Error al actualizar el producto:", error.message);
+            return res.status(500).json({ mensaje: "Error interno del servidor" });
+        }
     }
 
     //Metodo para eliminar categoria
@@ -71,6 +73,23 @@ class CategoriaController {
         const categoria = await OBJCategoria.delete(id);
 
         return res.json(categoria);
+    }
+
+    //Metodo para eliminar producto
+    static async deleteProducto(req, res) {
+        try {
+            const { id } = req.params; // Obtener el ID del producto desde los parámetros de la URL
+            const OBJCategoria = new Categoria(); // Crear una instancia del modelo Categoria
+    
+            // Llamar al método deleteProducto del modelo
+            const resultado = await OBJCategoria.deleteProducto(id);
+    
+            // Retornar la respuesta
+            return res.json(resultado);
+        } catch (error) {
+            console.error("Error al eliminar el producto:", error.message);
+            return res.status(500).json({ mensaje: "Error interno del servidor" });
+        }
     }
 
 }

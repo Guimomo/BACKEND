@@ -31,6 +31,8 @@ try {
     //DELETE -> eliminar categoria
     router.delete('/:id', CategoriaController.deleteCategoria);
 
+    // Ruta para eliminar un producto
+    router.delete('/productos/:id', CategoriaController.deleteProducto);
     
 } catch (error) {
 

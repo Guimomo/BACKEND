@@ -13,25 +13,25 @@ try {
     //put es actualizar y patch es modificar parte de un recurso
 
     //GET -> listar todas las categorias
-    router.get('/',CategoriaController.getAllCategorias);
+    router.get('/categorias',CategoriaController.getAllCategorias);
 
     //POST -> crear categoria
-    router.post('/', validarDatos, CategoriaController.createCategoria);
+    router.post('/categorias', validarDatos, CategoriaController.createCategoria);
     //ruta para crear un producto
     router.post('/productos', CategoriaController.createProducto);
 
     //PUT -> actualizar categoria
-    router.put('/:id', CategoriaController.updateCategoria);
+    router.put('/categorias/:id', CategoriaController.updateCategoria);
     // Ruta para actualizar un producto
     router.put('/productos/:id', CategoriaController.updateProducto);
 
     //PATCH -> modificar parte de la categoria
-    router.patch('/:id', CategoriaController.updateCategoria);
+    router.patch('/categorias/:id', CategoriaController.updateCategoria);
     // Ruta para actualizar un producto
     router.patch('/productos/:id', CategoriaController.updateProducto);
 
     //DELETE -> eliminar categoria
-    router.delete('/:id', CategoriaController.deleteCategoria);
+    router.delete('/categorias/:id', CategoriaController.deleteCategoria);
 
     // Ruta para eliminar un producto
     router.delete('/productos/:id', CategoriaController.deleteProducto);

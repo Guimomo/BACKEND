@@ -8,7 +8,12 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({extended:true}))
 
-app.use('/categorias', categoriasRoutes);
+// app.use('/categorias', categoriasRoutes);
+
+// app.use('/productos', categoriasRoutes);
+
+// Registrar las rutas
+app.use('/', categoriasRoutes);
 
 // app.get('/',(req,res)=>{
 //     // console.log('hola desde el inicio');
